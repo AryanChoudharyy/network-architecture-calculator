@@ -60,12 +60,10 @@ def main():
             client.sendall(raw)
             header = read_exact(stream, 12)
             response = header + read_exact(stream, struct.unpack("!2sBBII", header)[3])
-        (ROOT / "docs/request.bin").write_bytes(raw)
-        (ROOT / "docs/response.bin").write_bytes(response)
         parts = ["# Annotated BC/1 exchange\n\nCaptured from the real bserve handler over one local TCP connection by `scripts/capture_exchange.py`. The advertised host is illustrative; the capture uses an ephemeral local port. Offsets restart at zero in each frame. No bytes are omitted. The literal `x-note` header demonstrates the fallback encoding. File modification time reflects the sample file at capture time.\n"]
         for label, data, is_response in [("Request", raw, False), ("Response", response, True)]:
             parts.append(f"## {label} ({len(data)} bytes)\n\n```text\n{hexdump(data)}\n```\n\n" + annotations(data, is_response))
-        parts.append("\nThe response echoes request ID 1. The final bytes are the complete `www/hello.txt` file. `connection=keep-alive` leaves the same connection available for the next request. The companion .bin files contain precisely the bytes printed above.\n")
+        parts.append("\nThe response echoes request ID 1. The final bytes are the complete `www/hello.txt` file. `connection=keep-alive` leaves the same connection available for the next request. All captured bytes are included in the hexadecimal listings above.\n")
         (ROOT / "docs/annotated-hexdump.md").write_text("\n\n".join(parts), encoding="utf-8")
         print(f"Captured {len(raw)} request bytes and {len(response)} response bytes")
     finally:

@@ -86,4 +86,4 @@ Captured from the real bserve handler over one local TCP connection by `scripts/
 | 0068-0074 | 13 | Exact file body | `b'Hello, BC/1!\n'` |
 
 
-The response echoes request ID 1. The final bytes are the complete `www/hello.txt` file. `connection=keep-alive` leaves the same connection available for the next request. The companion .bin files contain precisely the bytes printed above.
+The response echoes request ID 1. The final bytes are the complete `www/hello.txt` file. `connection=keep-alive` leaves the same connection available for the next request. All captured bytes are included in the hexadecimal listings above.

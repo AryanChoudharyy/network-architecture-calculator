@@ -7,18 +7,18 @@ A complete implementation of **both pages** of the supplied assignment: a socket
 From this directory, in one terminal:
 
 ```powershell
-./run.ps1 calculator.py
+python calculator.py
 ```
 
 In another terminal:
 
 ```powershell
-./run.ps1 demo.py
-./run.ps1 demo.py --pipeline
+python demo.py
+python demo.py --pipeline
 curl.exe "http://127.0.0.1:8080/div?a=9&b=3"
 ```
 
-The Windows launcher finds installed Python or this workspace's bundled Python automatically. If PowerShell blocks local scripts, use `powershell -ExecutionPolicy Bypass -File ./run.ps1 calculator.py`. On macOS/Linux, replace `./run.ps1` with `python3`. Direct `python calculator.py` or `py -3 calculator.py` also works when installed. The server defaults to `127.0.0.1:8080`; use `--host`, `--port`, and `--timeout` to override. Stop with Ctrl+C.
+Use Python 3.10 or newer. On macOS/Linux, use `python3` if `python` is unavailable; on Windows, `py -3` also works when the Python launcher is installed. No platform-specific wrapper is required. The server defaults to `127.0.0.1:8080`; use `--host`, `--port`, and `--timeout` to override. Stop with Ctrl+C.
 
 | Request | Status | Body |
 |---|---|---|
@@ -45,17 +45,17 @@ Numbers use decimal arithmetic at 50 significant digits, accepting signed decima
 Start the file server:
 
 ```powershell
-./run.ps1 bserve.py ./www 9000
+python bserve.py ./www 9000
 ```
 
 Fetch files in another terminal:
 
 ```powershell
-./run.ps1 bcurl.py -v localhost:9000/index.html
-./run.ps1 bcurl.py -v localhost:9000/hello.txt localhost:9000/index.html
+python bcurl.py -v localhost:9000/index.html
+python bcurl.py -v localhost:9000/hello.txt localhost:9000/index.html
 ```
 
-Windows also has `./bserve.cmd ./www 9000` and `./bcurl.cmd -v localhost:9000/index.html`. On Unix, run `chmod +x bserve bcurl` once to use the assignment's exact `./bserve` and `./bcurl` commands.
+The commands above work on Windows, macOS, and Linux. Unix also supports the assignment's exact `./bserve ./www 9000` and `./bcurl -v localhost:9000/index.html` commands; the executable launchers are retained for that interface.
 
 The client makes exactly one TCP connection for all supplied URLs, writes response bodies unchanged to stdout, and prints verbose frame dumps to stderr. Multiple bodies are concatenated without separators. All URLs must have the same host and port. It never reconnects, follows redirects, or silently retries. Exit codes: 0 success, 22 any 4xx/5xx response, 1 transport/protocol failure, 2 invalid CLI arguments. A browser or ordinary curl cannot speak BC/1; use bcurl.
 
@@ -66,20 +66,18 @@ The file server keeps connections open after 200, 400, and 404 responses when fr
 - `docs/protocol.pdf`: the requested **two-page** standalone wire specification.
 - `docs/protocol.md`: editable version of the same specification.
 - `docs/annotated-hexdump.md`: a complete real request/response capture, annotated field by field.
-- `docs/request.bin`, `docs/response.bin`: original captured bytes.
 - `calculator.py`, `bserve.py`, `bcurl.py`, `netcalc/`: runnable implementation.
 - `tests/test_network.py`: TCP integration and interoperability checks.
-- `docs/requirements.md`: assignment requirements mapped to implementation and evidence.
 
 ## Verify
 
 ```powershell
-./run.ps1 verify.py
+python -m unittest discover -s tests -v
 ```
 
 The tests use temporary directories and ephemeral ports; no running server is required. They cover the assignment sequence on one socket, errors followed by successful requests, fragmentation, pipelining, body consumption, chunking, close, timeout, binary byte preservation, path safety, frame recovery, unknown-frame skipping in both directions, verbose output, CLI exit codes, and exactly one client connection. Independent hand-built wire messages test both peers without relying exclusively on shared encoder/decoder code.
 
-You can also run `python3 -m unittest discover -s tests -v`. To regenerate the live capture: `./run.ps1 scripts/capture_exchange.py`. To regenerate the PDF: install the development-only `reportlab` package and run `./run.ps1 scripts/build_spec.py`. Neither package installation nor PDF tooling is needed to run the project or tests.
+To regenerate the live capture: `python scripts/capture_exchange.py`. To regenerate the PDF: install the development-only `reportlab` package and run `python scripts/build_spec.py`. Neither package installation nor PDF tooling is needed to run the project or tests. The complete raw exchange is included directly in the annotated hexdump, so separate binary captures are unnecessary.
 
 ## Architecture and design decisions
 
