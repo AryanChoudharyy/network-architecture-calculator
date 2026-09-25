@@ -1,0 +1,58 @@
+Calculator listening on 127.0.0.1:56493
+GET /add?a=2&b=3 -> 200 5
+GET /sub?a=10&b=4 -> 200 6
+GET /mul?a=6&b=7 -> 200 42
+GET /div?a=1&b=0 -> 400 Division by zero
+GET /pow?a=2&b=8 -> 404 Unknown operation
+POST /add -> 405 Only GET is supported
+socket still open: True (verified by one final probe)
+1 TCP handshake, 6 assignment responses + 1 verification probe
+
+GET /add?a=2&b=3 -> 200 5
+GET /sub?a=10&b=4 -> 200 6
+GET /mul?a=6&b=7 -> 200 42
+GET /div?a=1&b=0 -> 400 Division by zero
+GET /pow?a=2&b=8 -> 404 Unknown operation
+POST /add -> 405 Only GET is supported
+socket still open: True (verified by one final probe)
+1 TCP handshake, 6 assignment responses + 1 verification probe
+
+BC/1 file server listening on 127.0.0.1:52482
+Hello, BC/1!
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>BC/1 works</title>
+<h1>Still on the line.</h1>
+<p>This file was delivered over a persistent BC/1 TCP connection.</p>
+</html>
+
+Verbose client: 2 requests and 2 responses on one connection. PASS
+test_bad_magic_recovery (test_network.BinaryTests.test_bad_magic_recovery) ... ok
+test_client_cli_stdout_and_exit_codes (test_network.BinaryTests.test_client_cli_stdout_and_exit_codes) ... ok
+test_client_one_connection_multiple_urls_verbose_and_error_exit (test_network.BinaryTests.test_client_one_connection_multiple_urls_verbose_and_error_exit) ... ok
+test_client_rejects_cross_origin_before_connect (test_network.BinaryTests.test_client_rejects_cross_origin_before_connect) ... ok
+test_client_skips_unknown_response_using_independent_peer (test_network.BinaryTests.test_client_skips_unknown_response_using_independent_peer) ... ok
+test_fragmented_frame (test_network.BinaryTests.test_fragmented_frame) ... ok
+test_literal_headers_and_close (test_network.BinaryTests.test_literal_headers_and_close) ... ok
+test_oversized_frame (test_network.BinaryTests.test_oversized_frame) ... ok
+test_path_restrictions (test_network.BinaryTests.test_path_restrictions) ... ok
+test_pipeline_unknown_frame_malformed_and_recovery (test_network.BinaryTests.test_pipeline_unknown_frame_malformed_and_recovery) ... ok
+test_truncated_frame (test_network.BinaryTests.test_truncated_frame) ... ok
+test_arithmetic_and_validation (test_network.HTTPTests.test_arithmetic_and_validation) ... ok
+test_assignment_sequence_single_socket (test_network.HTTPTests.test_assignment_sequence_single_socket) ... ok
+test_bad_framing_is_fatal (test_network.HTTPTests.test_bad_framing_is_fatal) ... ok
+test_chunked_extensions_trailers_then_next_request (test_network.HTTPTests.test_chunked_extensions_trailers_then_next_request) ... ok
+test_connection_close (test_network.HTTPTests.test_connection_close) ... ok
+test_expect_continue (test_network.HTTPTests.test_expect_continue) ... ok
+test_fragmented_request (test_network.HTTPTests.test_fragmented_request) ... ok
+test_head_does_not_desynchronize (test_network.HTTPTests.test_head_does_not_desynchronize) ... ok
+test_idle_client_does_not_block_others (test_network.HTTPTests.test_idle_client_does_not_block_others) ... ok
+test_idle_timeout (test_network.HTTPTests.test_idle_timeout) ... ok
+test_limits_and_invalid_chunk (test_network.HTTPTests.test_limits_and_invalid_chunk) ... ok
+test_pipelining_body_and_error_drain (test_network.HTTPTests.test_pipelining_body_and_error_drain) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 2.234s
+
+OK

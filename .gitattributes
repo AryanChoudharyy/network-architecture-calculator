@@ -1,0 +1,11 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+bserve text eol=lf
+bcurl text eol=lf
+www/* text eol=lf
+*.pdf binary
+*.bin binary
+*.zip binary
